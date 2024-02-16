@@ -1,14 +1,13 @@
 .counter {
 	display: flex;
 	align-items: center;
-	height: 75px;
+	height: 60px;
 	width: 100%;
 	background-color: var(--black-plate);
 	border-radius: var(--border-radius);
 	overflow: hidden;
 	margin-bottom: 20px; //todo remove after creating Group component with gap prop
-	// padding: 0 15px;
-	padding-left: 15px;
+	padding: 0 15px;
 	gap: 10px;
 	&__icon {
 		height: 25px;
@@ -26,6 +25,7 @@
 		font-size: 14px;
 	}
 	&__unit {
+		display: none;
 		font-size: 8px;
 		color: var(--gray);
 		text-transform: uppercase;
@@ -38,6 +38,7 @@
 		align-items: center;
 		height: 100%;
 		button {
+			display: none;
 			width: 45px;
 			height: 100%;
 			text-align: center;
@@ -48,7 +49,28 @@
 		}
 	}
 	&__value {
-		font-size: 40px;
 		font-weight: var(--fw-light);
+		font-size: 32px;
+		width: 40px;
+		text-align: center;
+	}
+}
+
+.counter--active {
+	height: 75px;
+	padding-right: 0;
+	.counter {
+		&__icon {
+			transform: scale(2) translateX(-7px) rotate(-13deg);
+		}
+		&__unit {
+			display: block;
+		}
+		&__counter-display button {
+			display: block;
+		}
+		&__value {
+			font-size: 40px;
+		}
 	}
 }
