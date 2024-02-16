@@ -1,7 +1,14 @@
 import "./App.scss";
+import { Counter } from "./components/Counter/Counter";
 
 function App() {
-	return <div className="App">hello world</div>;
+	return (
+		<>
+			<Counter />
+			<Counter />
+			<Counter />
+		</>
+	);
 }
 
 export default App;

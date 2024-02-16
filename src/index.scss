@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+:root {
+	--black: #101010;
+	--black-plate: #1c1b1b;
+	--white: #f1f1f1;
+	--gray: color-mix(in srgb, var(--white) 50%, transparent);
+
+	--border-radius: 5px;
+
+	--fw-x-light: 200;
+	--fw-light: 300;
+	--fw-regular: 400;
+	--fw-bold: 700;
+
+	font-family: "Inter";
+	font-weight: var(--fw-regular);
+	color: var(--white);
+}
+
+body {
+	padding: 0 20px;
+	background-color: var(--black);
+}
