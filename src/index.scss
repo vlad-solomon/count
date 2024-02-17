@@ -22,3 +22,9 @@ body {
 	padding: 0 20px;
 	background-color: var(--black);
 }
+
+*,
+*::before,
+*::after {
+	user-select: none;
+}

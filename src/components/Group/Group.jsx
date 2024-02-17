@@ -24,5 +24,3 @@ export function Group({ id, title, isExpanded }) {
 		</div>
 	);
 }
-
-// <Counter key={counter.id} {...counter} isActive={counter.id === activeCounter} />;

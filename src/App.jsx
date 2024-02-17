@@ -1,17 +1,14 @@
 import "./App.scss";
-import { Counter } from "./components/Counter/Counter";
-import { useCounterStore } from "./stores/useCounterStrore";
-
-// todo fix store typo
+import { Group } from "./components/Group/Group";
+import { useCounterStore } from "./stores/useCounterStore";
 
 function App() {
-	const counters = useCounterStore((state) => state.counters);
-	const activeCounter = useCounterStore((state) => state.activeCounter);
+	const groups = useCounterStore((state) => state.groups);
 
 	return (
 		<>
-			{counters.map((counter) => (
-				<Counter key={counter.id} {...counter} isActive={counter.id === activeCounter} />
+			{groups.map(({ id, name, isExpanded }) => (
+				<Group key={id} id={id} title={name} isExpanded={isExpanded} />
 			))}
 		</>
 	);
