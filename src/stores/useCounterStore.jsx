@@ -32,11 +32,20 @@ export const useCounterStore = create(
 		],
 		activeCounter: 1,
 		setActiveCounter: (id) => set({ activeCounter: id }),
-		setValue: (id, action) =>
-			// todo create a function to get the value easier, for more actions, to limit values, and so on
+		setValue: (id, action) => {
+			function getValue(prev, action) {
+				switch (action) {
+					case "increment":
+						return prev + 1;
+					case "decrement":
+						return Math.max(0, prev - 1);
+				}
+			}
+
 			set((state) => ({
-				counters: state.counters.map((counter) => (counter.id === id ? { ...counter, value: action === "increment" ? counter.value + 1 : Math.max(0, counter.value - 1) } : counter)),
-			})),
+				counters: state.counters.map((counter) => (counter.id === id ? { ...counter, value: getValue(counter.value, action) } : counter)),
+			}));
+		},
 		groups: [
 			{
 				id: 1,
@@ -49,10 +58,12 @@ export const useCounterStore = create(
 				isExpanded: true,
 			},
 		],
-		setExpandedGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
+		toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
 	})
 	// {
 	// 	name: "counters-storage",
 	// }
 	// )
 );
+
+// todo create a function to get the value easier, for more actions, to limit values, and so on
