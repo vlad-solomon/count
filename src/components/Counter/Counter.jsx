@@ -1,6 +1,6 @@
 import "./Counter.scss";
 import classNames from "classnames";
-import { useCounterStore } from "../../stores/useCounterStrore";
+import { useCounterStore } from "../../stores/useCounterStore";
 
 export function Counter({ id, name, unit, icon, value, isActive }) {
 	const setActiveCounter = useCounterStore((state) => state.setActiveCounter);

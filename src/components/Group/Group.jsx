@@ -1,7 +1,7 @@
 import "./Group.scss";
 import { Counter } from "../Counter/Counter";
 import { ChevronDown } from "react-feather";
-import { useCounterStore } from "../../stores/useCounterStrore";
+import { useCounterStore } from "../../stores/useCounterStore";
 import classNames from "classnames";
 
 export function Group({ id, title, isExpanded }) {
