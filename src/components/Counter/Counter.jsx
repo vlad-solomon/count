@@ -11,7 +11,7 @@ export function Counter({ id, name, unit, icon, value, isActive }) {
 			<div className="counter__icon">👋</div>
 			<div className="counter__details">
 				<div className="counter__title">{name}</div>
-				<div className="counter__unit">{unit}</div>
+				{unit && <div className="counter__unit">{unit}</div>}
 			</div>
 			<div className="counter__counter-display">
 				<button onClick={() => setValue(id, "decrement")}>-</button>
