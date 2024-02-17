@@ -23,6 +23,10 @@ body {
 	background-color: var(--black);
 }
 
+img {
+	pointer-events: none;
+}
+
 *,
 *::before,
 *::after {
