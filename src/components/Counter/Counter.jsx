@@ -14,9 +14,9 @@ export function Counter({ id, name, unit, icon, value, isActive }) {
 				{unit && <div className="counter__unit">{unit}</div>}
 			</div>
 			<div className="counter__counter-display">
-				<button onClick={() => setValue(id, "decrement")}>-</button>
+				<button onClick={() => setValue(id, "decrement")}> - </button>
 				<div className="counter__value">{value}</div>
-				<button onClick={() => setValue(id, "increment")}>+</button>
+				<button onClick={() => setValue(id, "increment")}> + </button>
 			</div>
 		</div>
 	);
