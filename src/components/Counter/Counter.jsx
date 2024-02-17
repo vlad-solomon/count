@@ -8,7 +8,7 @@ export function Counter({ id, name, unit, icon, value, isActive }) {
 
 	return (
 		<div className={classNames("counter", isActive && "counter--active")} onClick={() => setActiveCounter(id)}>
-			<div className="counter__icon">👋</div>
+			<div className="counter__icon">{icon}</div>
 			<div className="counter__details">
 				<div className="counter__title">{name}</div>
 				{unit && <div className="counter__unit">{unit}</div>}
