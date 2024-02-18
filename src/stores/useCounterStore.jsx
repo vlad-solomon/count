@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+// import { persist } from "zustand/middleware";
 
 export const useCounterStore = create(
 	// persist(
@@ -46,6 +46,7 @@ export const useCounterStore = create(
 				counters: state.counters.map((counter) => (counter.id === id ? { ...counter, value: getValue(counter.value, action) } : counter)),
 			}));
 		},
+		addCounter: (counter) => set((state) => ({ counters: [...state.counters, counter] })),
 		groups: [
 			{
 				id: 1,
@@ -59,6 +60,8 @@ export const useCounterStore = create(
 			},
 		],
 		toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
+		isCreatingCounter: true,
+		setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
 	})
 	// {
 	// 	name: "counters-storage",

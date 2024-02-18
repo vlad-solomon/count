@@ -7,10 +7,11 @@ import { Modal } from "./components/Modal/Modal";
 
 function App() {
 	const groups = useCounterStore((state) => state.groups);
+	const isCreatingCounter = useCounterStore((state) => state.isCreatingCounter);
 
 	return (
 		<>
-			<Modal />
+			{isCreatingCounter && <Modal />}
 			{/* <Splash /> */}
 			{groups.map(({ id, name, isExpanded }) => (
 				<Group key={id} id={id} title={name} isExpanded={isExpanded} />
