@@ -13,8 +13,8 @@ function App() {
 		<>
 			{isCreatingCounter && <Modal />}
 			{/* <Splash /> */}
-			{groups.map(({ id, name, isExpanded }) => (
-				<Group key={id} id={id} title={name} isExpanded={isExpanded} />
+			{groups.map(({ id, name, isExpanded, counters }) => (
+				<Group key={id} id={id} title={name} isExpanded={isExpanded} counters={counters} />
 			))}
 			<ActionButton />
 		</>

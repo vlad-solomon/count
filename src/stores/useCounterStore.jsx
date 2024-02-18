@@ -4,35 +4,47 @@ import { create } from "zustand";
 export const useCounterStore = create(
 	// persist(
 	(set) => ({
-		counters: [
+		groups: [
 			{
 				id: 1,
-				name: "name 1",
-				unit: "unit",
-				icon: "⭐",
-				value: 0,
-				groupId: 1,
+				name: "group 1",
+				isExpanded: true,
+				counters: [
+					{
+						id: 1,
+						name: "name 1",
+						unit: "unit",
+						icon: "⭐",
+						value: 0,
+					},
+					{
+						id: 2,
+						name: "name 2",
+						unit: "unit",
+						icon: "⭐",
+						value: 1,
+					},
+				],
 			},
 			{
 				id: 2,
-				name: "name 2",
-				unit: "unit",
-				icon: "⭐",
-				value: 1,
-				groupId: 1,
-			},
-			{
-				id: 3,
-				name: "name 3",
-				unit: "unit",
-				icon: "⭐",
-				value: 2,
-				groupId: 2,
+				name: "group 2",
+				isExpanded: true,
+				counters: [
+					{
+						id: 3,
+						name: "name 3",
+						unit: "unit",
+						icon: "⭐",
+						value: 2,
+					},
+				],
 			},
 		],
-		activeCounter: 1,
-		setActiveCounter: (id) => set({ activeCounter: id }),
-		setValue: (id, action) => {
+		toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
+		activeCounterId: 1,
+		setActiveCounterId: (id) => set({ activeCounterId: id }),
+		setValue: (groupId, id, action) => {
 			function getValue(prev, action) {
 				switch (action) {
 					case "increment":
@@ -43,24 +55,12 @@ export const useCounterStore = create(
 			}
 
 			set((state) => ({
-				counters: state.counters.map((counter) => (counter.id === id ? { ...counter, value: getValue(counter.value, action) } : counter)),
+				groups: state.groups.map((group) =>
+					group.id === groupId ? { ...group, counters: group.counters.map((counter) => (counter.id === id ? { ...counter, value: getValue(counter.value, action) } : counter)) } : group
+				),
 			}));
 		},
-		addCounter: (counter) => set((state) => ({ counters: [...state.counters, counter] })),
-		groups: [
-			{
-				id: 1,
-				name: "group 1",
-				isExpanded: true,
-			},
-			{
-				id: 2,
-				name: "group 2",
-				isExpanded: true,
-			},
-		],
-		toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
-		isCreatingCounter: true,
+		isCreatingCounter: false,
 		setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
 	})
 	// {

@@ -11,6 +11,7 @@ export function Modal() {
 	const [groupValue, setGroupValue] = useState("Create new...");
 
 	return (
+		// todo add clicking on the modal__wrapper to close it | stopPropagation
 		<div className="modal__wrapper">
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
@@ -37,6 +38,7 @@ export function Modal() {
 						<div className="modal__dropdown" onClick={() => setIsDropdown((prev) => !prev)}>
 							<input type="text" value={groupValue} readOnly />
 							<ChevronDown />
+							{/* //todo rework and restyle this */}
 							{isDropdown && (
 								<div className="modal__dropdown-options">
 									<ul>
