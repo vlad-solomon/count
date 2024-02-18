@@ -1,14 +1,19 @@
 import "./Modal.scss";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { ChevronDown } from "react-feather";
 
 export function Modal() {
 	const setIsCreatingCounter = useCounterStore((state) => state.setIsCreatingCounter);
 	const groups = useCounterStore((state) => state.groups);
+	const addCounter = useCounterStore((state) => state.addCounter);
+	const initialGroupState = { state: true, value: "Create new group..." };
 	const [isDropdown, setIsDropdown] = useState(false);
-	const [isNewGroup, setIsNewGroup] = useState(true);
-	const [groupValue, setGroupValue] = useState("Create new...");
+	const [isNewGroup, setIsNewGroup] = useState(initialGroupState);
+
+	const nameRef = useRef();
+	const unitRef = useRef();
+	const groupNameRef = useRef();
 
 	return (
 		// todo add clicking on the modal__wrapper to close it | stopPropagation
@@ -27,49 +32,35 @@ export function Modal() {
 					</div>
 					<div className="modal__input">
 						<label>counter name*</label>
-						<input type="text" />
+						<input type="text" placeholder="Name" ref={nameRef} />
 					</div>
 					<div className="modal__input">
 						<label>unit of measurement</label>
-						<input type="text" />
+						<input type="text" placeholder="Unit" ref={unitRef} />
 					</div>
 					<div className="modal__input">
 						<label>group</label>
 						<div className="modal__dropdown" onClick={() => setIsDropdown((prev) => !prev)}>
-							<input type="text" value={groupValue} readOnly />
+							<input type="text" value={isNewGroup.value} readOnly={true} />
 							<ChevronDown />
-							{/* //todo rework and restyle this */}
 							{isDropdown && (
 								<div className="modal__dropdown-options">
 									<ul>
+										<li onClick={() => setIsNewGroup(initialGroupState)}>{initialGroupState.value}</li>
 										{groups.map((group) => (
-											<li
-												key={group.id}
-												onClick={() => {
-													setIsNewGroup(false);
-													setGroupValue(group.name);
-												}}
-											>
+											<li key={group.id} onClick={() => setIsNewGroup({ state: false, value: group.name, groupId: group.id })}>
 												{group.name}
 											</li>
 										))}
-										<li
-											onClick={() => {
-												setIsNewGroup(true);
-												setGroupValue("Create new...");
-											}}
-										>
-											Create new...
-										</li>
 									</ul>
 								</div>
 							)}
 						</div>
 					</div>
-					{isNewGroup && (
+					{isNewGroup.state && (
 						<div className="modal__input">
 							<label>group name*</label>
-							<input type="text" />
+							<input type="text" placeholder="Group name" ref={groupNameRef} />
 						</div>
 					)}
 				</form>
@@ -79,6 +70,12 @@ export function Modal() {
 					<button
 						onClick={() => {
 							setIsCreatingCounter(false);
+							addCounter(
+								isNewGroup.groupId,
+								groupNameRef?.current?.value,
+								{ id: crypto.randomUUID(), name: nameRef.current.value, unit: unitRef.current.value, icon: "💀", value: 0 },
+								crypto.randomUUID()
+							);
 						}}
 					>
 						accept
