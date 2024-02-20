@@ -8,8 +8,6 @@ export function Group({ id, title, isExpanded, counters }) {
 	const activeCounterId = useCounterStore((state) => state.activeCounterId);
 	const toggleGroup = useCounterStore((state) => state.toggleGroup);
 
-	// todo is there a reason why a group's state expanded state should be global?
-
 	return (
 		<div className={classNames("group", isExpanded && "group--is-expanded")}>
 			<div className="group__title" onClick={() => toggleGroup(id)}>
