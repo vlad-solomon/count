@@ -4,16 +4,21 @@ import { useCounterStore } from "../../stores/useCounterStore";
 import { ChevronDown } from "react-feather";
 
 export function Modal() {
+	const isCreatingCounter = useCounterStore((state) => state.isCreatingCounter);
 	const setIsCreatingCounter = useCounterStore((state) => state.setIsCreatingCounter);
 	const groups = useCounterStore((state) => state.groups);
 	const addCounter = useCounterStore((state) => state.addCounter);
 	const initialGroupState = { state: true, value: "Create new group..." };
 	const [isDropdown, setIsDropdown] = useState(false);
 	const [isNewGroup, setIsNewGroup] = useState(initialGroupState);
+	// todo refactor isNewGroup and initialGroupState
 
+	// todo refactor with formData, give labels and input their proper attributes
 	const nameRef = useRef();
 	const unitRef = useRef();
 	const groupNameRef = useRef();
+
+	if (!isCreatingCounter) return;
 
 	return (
 		// todo add clicking on the modal__wrapper to close it | stopPropagation
@@ -27,6 +32,7 @@ export function Modal() {
 					}}
 				>
 					<div className="modal__icon">
+						{/* //todo refactor icon -- use the first letter/letters on the counter? */}
 						<div className="modal__icon-picker">⭐</div>
 						<button>icon</button>
 					</div>
@@ -45,6 +51,7 @@ export function Modal() {
 							<ChevronDown />
 							{isDropdown && (
 								<div className="modal__dropdown-options">
+									{/* //todo add the "Create new group..." to groups.map */}
 									<ul>
 										<li onClick={() => setIsNewGroup(initialGroupState)}>{initialGroupState.value}</li>
 										{groups.map((group) => (
@@ -69,13 +76,16 @@ export function Modal() {
 					<button onClick={() => setIsCreatingCounter(false)}>cancel</button>
 					<button
 						onClick={() => {
+							const newCounter = {
+								id: crypto.randomUUID(),
+								name: nameRef.current.value,
+								unit: unitRef.current.value,
+								icon: "💀",
+								value: 0,
+							};
+
 							setIsCreatingCounter(false);
-							addCounter(
-								isNewGroup.groupId,
-								groupNameRef?.current?.value,
-								{ id: crypto.randomUUID(), name: nameRef.current.value, unit: unitRef.current.value, icon: "💀", value: 0 },
-								crypto.randomUUID()
-							);
+							addCounter(isNewGroup.groupId, groupNameRef?.current?.value, newCounter);
 						}}
 					>
 						accept

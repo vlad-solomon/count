@@ -60,14 +60,15 @@ export const useCounterStore = create((set) => ({
 	},
 	isCreatingCounter: false,
 	setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
-	addCounter: (groupId, groupName, counter, newGroupId) =>
+	// todo use an object as the parameter?
+	addCounter: (groupId, groupName, counter) =>
 		set((state) => ({
 			groups: groupId
 				? state.groups.map((group) => (group.id === groupId ? { ...group, counters: [...group.counters, counter] } : group))
 				: [
 						...state.groups,
 						{
-							id: newGroupId,
+							id: crypto.randomUUID(),
 							name: groupName,
 							isExpanded: true,
 							counters: [counter],
