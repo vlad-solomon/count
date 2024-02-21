@@ -14,10 +14,12 @@ export function Modal() {
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
 	const formRef = useRef();
 
+	// todo set isDropdown to false when dismissing the Modal
+	// todo add clicking on the modal__wrapper to close it | stopPropagation
+
 	if (!isCreatingCounter) return;
 
 	return (
-		// todo add clicking on the modal__wrapper to close it | stopPropagation
 		<div className="modal__wrapper">
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
@@ -47,6 +49,8 @@ export function Modal() {
 										.map(({ id, name }) => (
 											<li key={id} onClick={() => setSelectedGroup({ id, name })}>
 												{name}
+												{/* //todo display icon next to the option that creates a new group. this way it handles the edge of someone naming their group "Create new group..." */}
+												{id === "new" && "⭐"}
 											</li>
 										))}
 								</ul>
