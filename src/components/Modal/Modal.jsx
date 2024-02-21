@@ -12,11 +12,7 @@ export function Modal() {
 	const NEW_GROUP_OPTION = { id: "new", name: "Create new group..." };
 	const [isDropdown, setIsDropdown] = useState(false);
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
-
-	// todo refactor with formData, give labels and input their proper attributes
-	const nameRef = useRef();
-	const unitRef = useRef();
-	const groupNameRef = useRef();
+	const formRef = useRef();
 
 	if (!isCreatingCounter) return;
 
@@ -25,7 +21,7 @@ export function Modal() {
 		<div className="modal__wrapper">
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
-				<form className="modal__form" onSubmit={(event) => event.preventDefault()}>
+				<form className="modal__form" id="new-counter-form" ref={formRef} onSubmit={(event) => event.preventDefault()}>
 					{/* //todo refactor icon -- use the first letter/letters of the counter? */}
 					{/* <div className="modal__icon">
 						<div className="modal__icon-picker">⭐</div>
@@ -33,11 +29,11 @@ export function Modal() {
 					</div> */}
 					<div className="modal__input">
 						<label>counter name</label>
-						<input type="text" placeholder="Name" ref={nameRef} />
+						<input type="text" name="counterName" placeholder="Name" />
 					</div>
 					<div className="modal__input">
 						<label>unit of measurement (optional)</label>
-						<input type="text" placeholder="Unit" ref={unitRef} />
+						<input type="text" name="unitOfMeasurement" placeholder="Unit" />
 					</div>
 					<div className="modal__input">
 						<label>group</label>
@@ -60,7 +56,7 @@ export function Modal() {
 					{selectedGroup.id === "new" && (
 						<div className="modal__input">
 							<label>group name</label>
-							<input type="text" placeholder="Group name" ref={groupNameRef} />
+							<input type="text" name="groupName" placeholder="Group name" />
 						</div>
 					)}
 				</form>
@@ -68,17 +64,19 @@ export function Modal() {
 				<div className="modal__controls">
 					<button onClick={() => setIsCreatingCounter(false)}>cancel</button>
 					<button
+						type="submit"
+						form="new-counter-form"
 						onClick={() => {
+							const formData = new FormData(formRef.current);
 							const counter = {
 								id: crypto.randomUUID(),
-								name: nameRef.current.value,
-								unit: unitRef.current.value,
+								name: formData.get("counterName"),
+								unit: formData.get("unitOfMeasurement"),
 								icon: "💀",
 								value: 0,
 							};
-
 							setIsCreatingCounter(false);
-							addCounter({ groupId: selectedGroup.id, groupName: groupNameRef?.current?.value, counter });
+							addCounter({ groupId: selectedGroup.id, groupName: formData.get("groupName"), counter });
 						}}
 					>
 						accept
