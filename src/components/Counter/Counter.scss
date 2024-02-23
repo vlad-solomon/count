@@ -20,6 +20,9 @@
 		font-size: 15px;
 		background: linear-gradient(rgba(255, 255, 255, 0.15), transparent);
 		border-radius: 50%;
+		text-transform: uppercase;
+		font-size: 70%;
+		color: rgba(255, 255, 255, 0.9);
 	}
 	&__details {
 		display: flex;
@@ -66,7 +69,7 @@
 	padding-right: 0;
 	.counter {
 		&__icon {
-			transform: scale(2) translateX(-7px) rotate(-13deg);
+			transform: scale(2) translateX(-7px);
 		}
 		&__unit {
 			display: block;

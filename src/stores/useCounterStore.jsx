@@ -39,6 +39,7 @@ export const useCounterStore = create((set) => ({
 			],
 		},
 	],
+	groups: [],
 	toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
 	activeCounterId: 1,
 	setActiveCounterId: (id) => set({ activeCounterId: id }),

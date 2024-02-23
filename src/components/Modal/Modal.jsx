@@ -2,6 +2,7 @@ import "./Modal.scss";
 import { useState, useRef } from "react";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { ChevronDown, X as Close } from "react-feather";
+import useIcon from "../../hooks/useIcon";
 
 export function Modal() {
 	const isCreatingCounter = useCounterStore((state) => state.isCreatingCounter);
@@ -43,6 +44,7 @@ export function Modal() {
 							<input type="text" value={selectedGroup.name} readOnly={true} />
 							{isDropdown ? <Close /> : <ChevronDown />}
 							{isDropdown && (
+								// todo make dropdown unavailable if only one option is available
 								<ul className="modal__dropdown-options">
 									{[NEW_GROUP_OPTION, ...groups]
 										.filter((option) => option.id !== selectedGroup.id)
@@ -76,7 +78,7 @@ export function Modal() {
 								id: crypto.randomUUID(),
 								name: formData.get("counterName"),
 								unit: formData.get("unitOfMeasurement"),
-								icon: "💀",
+								icon: useIcon(formData.get("counterName")),
 								value: 0,
 							};
 							setIsCreatingCounter(false);
