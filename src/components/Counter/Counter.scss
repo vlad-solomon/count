@@ -70,6 +70,7 @@
 	.counter {
 		&__icon {
 			transform: scale(2) translateX(-7px);
+			font-weight: var(--fw-bold);
 		}
 		&__unit {
 			display: block;

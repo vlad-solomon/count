@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { ChevronDown, X as Close } from "react-feather";
 import useIcon from "../../hooks/useIcon";
+import classNames from "classnames";
 
 export function Modal() {
 	const isCreatingCounter = useCounterStore((state) => state.isCreatingCounter);
@@ -24,35 +25,27 @@ export function Modal() {
 		<div className="modal__wrapper">
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
-				<form className="modal__form" id="new-counter-form" ref={formRef} onSubmit={(event) => event.preventDefault()}>
-					{/* //todo refactor icon -- use the first letter/letters of the counter? */}
-					{/* <div className="modal__icon">
-						<div className="modal__icon-picker">⭐</div>
-						<button>icon</button>
-					</div> */}
+				<form className="modal__form" id="new-counter-form" ref={formRef}>
 					<div className="modal__input">
 						<label>counter name</label>
-						<input type="text" name="counterName" placeholder="Name" />
+						<input type="text" name="counterName" placeholder="Name" spellCheck={false} autoComplete="off" />
 					</div>
 					<div className="modal__input">
 						<label>unit of measurement (optional)</label>
-						<input type="text" name="unitOfMeasurement" placeholder="Unit" />
+						<input type="text" name="unitOfMeasurement" placeholder="Unit" spellCheck={false} autoComplete="off" />
 					</div>
 					<div className="modal__input">
 						<label>group</label>
-						<div className="modal__dropdown" onClick={() => setIsDropdown((prev) => !prev)}>
-							<input type="text" value={selectedGroup.name} readOnly={true} />
+						<div className={classNames("modal__dropdown", !groups.length && "modal__dropdown--empty")} onClick={() => setIsDropdown((prev) => !prev)}>
+							<input type="text" value={selectedGroup.name} readOnly={true} spellCheck={false} autoComplete="off" />
 							{isDropdown ? <Close /> : <ChevronDown />}
 							{isDropdown && (
-								// todo make dropdown unavailable if only one option is available
 								<ul className="modal__dropdown-options">
 									{[NEW_GROUP_OPTION, ...groups]
 										.filter((option) => option.id !== selectedGroup.id)
 										.map(({ id, name }) => (
-											<li key={id} onClick={() => setSelectedGroup({ id, name })}>
+											<li className={classNames(id === "new" && "create-new")} key={id} onClick={() => setSelectedGroup({ id, name })}>
 												{name}
-												{/* //todo display icon next to the option that creates a new group. this way it handles the edge of someone naming their group "Create new group..." */}
-												{id === "new" && "⭐"}
 											</li>
 										))}
 								</ul>

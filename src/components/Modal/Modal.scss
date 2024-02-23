@@ -96,11 +96,17 @@
 	&__dropdown {
 		position: relative;
 		cursor: pointer;
+		&--empty {
+			pointer-events: none;
+			svg {
+				display: none;
+			}
+		}
 		input {
 			pointer-events: none;
 			width: 100%;
 		}
-		svg {
+		& > svg {
 			position: absolute;
 			right: 0;
 		}
@@ -109,7 +115,7 @@
 			z-index: 1;
 			position: absolute;
 			background-color: var(--black-plate);
-			transform: translateY(-1px);
+			transform: translateY(-4px);
 			border-radius: var(--border-radius);
 			box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 			width: 100%;
@@ -120,6 +126,10 @@
 				padding: 15px;
 				&:not(:last-of-type) {
 					border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+				}
+				&.create-new {
+					font-weight: var(--fw-bold);
+					text-decoration: underline;
 				}
 			}
 		}
