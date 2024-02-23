@@ -25,7 +25,7 @@ export function Modal() {
 		<div className="modal__wrapper">
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
-				<form className="modal__form" id="new-counter-form" ref={formRef}>
+				<form className="modal__form" id="new-counter-form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
 					<div className="modal__input">
 						<label>counter name</label>
 						<input type="text" name="counterName" placeholder="Name" spellCheck={false} autoComplete="off" />

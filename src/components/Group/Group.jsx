@@ -15,6 +15,7 @@ export function Group({ id, title, isExpanded, counters }) {
 				<ChevronDown size={12} style={{ rotate: !isExpanded ? "-90deg" : "0deg" }} />
 			</div>
 			<div className="group__counters" style={{ display: !isExpanded ? "none" : "flex" }}>
+				{/* //todo empty state for empty groups */}
 				{counters.map((counter) => (
 					<Counter key={counter.id} groupId={id} {...counter} isActive={counter.id === activeCounterId} />
 				))}
