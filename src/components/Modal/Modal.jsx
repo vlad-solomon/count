@@ -13,11 +13,14 @@ export function Modal() {
 
 	const NEW_GROUP_OPTION = { id: "new", name: "Create new group..." };
 	const [isDropdown, setIsDropdown] = useState(false);
+	const [count, setCount] = useState(0);
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
 	const formRef = useRef();
 
 	// todo set isDropdown to false when dismissing the Modal
 	// todo add clicking on the modal__wrapper to close it | stopPropagation
+	// todo only create a counter when a name and a group name (if applicable) is available
+	// todo add tabindex's
 
 	if (!isCreatingCounter) return;
 
@@ -28,11 +31,11 @@ export function Modal() {
 				<form className="modal__form" id="new-counter-form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
 					<div className="modal__input">
 						<label>counter name</label>
-						<input type="text" name="counterName" placeholder="Name" spellCheck={false} autoComplete="off" />
+						<input type="text" name="counterName" spellCheck={false} autoComplete="off" autoFocus />
 					</div>
 					<div className="modal__input">
 						<label>unit of measurement (optional)</label>
-						<input type="text" name="unitOfMeasurement" placeholder="Unit" spellCheck={false} autoComplete="off" />
+						<input type="text" name="unitOfMeasurement" spellCheck={false} autoComplete="off" />
 					</div>
 					<div className="modal__input">
 						<label>group</label>
@@ -55,11 +58,21 @@ export function Modal() {
 					{selectedGroup.id === "new" && (
 						<div className="modal__input">
 							<label>group name</label>
-							<input type="text" name="groupName" placeholder="Group name" />
+							<input type="text" name="groupName" />
 						</div>
 					)}
+					<div className="modal__preview-counter">
+						<button onClick={() => setCount((prev) => Math.max(0, --prev))}> - </button>
+						<input
+							type="text"
+							placeholder={0}
+							value={count === 0 ? "" : count}
+							onChange={(e) => setCount(e.target.value.replace(/\D/, ""))}
+							onBlur={() => setCount(count.length ? parseInt(count) : 0)}
+						/>
+						<button onClick={() => setCount((prev) => ++prev)}> + </button>
+					</div>
 				</form>
-				{/* <div className="modal__preview-counter"></div> */}
 				<div className="modal__controls">
 					<button onClick={() => setIsCreatingCounter(false)}>cancel</button>
 					<button
@@ -72,7 +85,7 @@ export function Modal() {
 								name: formData.get("counterName"),
 								unit: formData.get("unitOfMeasurement"),
 								icon: useIcon(formData.get("counterName")),
-								value: 0,
+								value: count,
 							};
 							setIsCreatingCounter(false);
 							addCounter({ groupId: selectedGroup.id, groupName: formData.get("groupName"), counter });

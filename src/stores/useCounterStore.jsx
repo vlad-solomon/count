@@ -59,7 +59,7 @@ export const useCounterStore = create((set) => ({
 			),
 		}));
 	},
-	isCreatingCounter: false,
+	isCreatingCounter: true,
 	setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
 	addCounter: ({ groupId, groupName, counter }) => {
 		if (groupId === "new") {
