@@ -1,15 +1,15 @@
+import { useModalStore } from "../../stores/useModalStore";
 import "./ActionButton.scss";
 import { Plus } from "react-feather";
-import { useCounterStore } from "../../stores/useCounterStore";
 
 export function ActionButton() {
-	const setIsCreatingCounter = useCounterStore((state) => state.setIsCreatingCounter);
+	const setModal = useModalStore((state) => state.setModal);
 
 	return (
 		<button
 			className="action-button"
 			onClick={() => {
-				setIsCreatingCounter(true);
+				setModal("create");
 			}}
 		>
 			<Plus size={35} />

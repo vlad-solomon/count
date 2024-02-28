@@ -1,13 +1,25 @@
 import "./Counter.scss";
 import classNames from "classnames";
 import { useCounterStore } from "../../stores/useCounterStore";
+import { useModalStore } from "../../stores/useModalStore";
+import { useLongPress } from "@uidotdev/usehooks";
 
 export function Counter({ id, groupId, name, unit, icon, value, isActive }) {
+	const setModal = useModalStore((state) => state.setModal);
 	const setActiveCounterId = useCounterStore((state) => state.setActiveCounterId);
 	const setValue = useCounterStore((state) => state.setValue);
+	const longPressAttrs = useLongPress(() => setModal("modify"), { threshold: 350 });
 
 	return (
-		<div className={classNames("counter", isActive && "counter--active")} onClick={() => setActiveCounterId(id)}>
+		<div
+			{...longPressAttrs}
+			className={classNames("counter", isActive && "counter--active")}
+			onClick={() => setActiveCounterId(id)}
+			onContextMenu={(e) => {
+				e.preventDefault();
+				setModal("modify");
+			}}
+		>
 			<div className="counter__icon">{icon}</div>
 			<div className="counter__details">
 				<div className="counter__title">{name}</div>

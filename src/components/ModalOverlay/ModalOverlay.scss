@@ -5,5 +5,137 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: red;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background-color: rgba(16, 16, 16, 0.25);
+	backdrop-filter: blur(18px);
+	padding: 20px;
+	gap: 15px;
+}
+
+.modal-overlay .modal {
+	background-color: var(--black-plate);
+	border-radius: var(--border-radius);
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+	padding: 20px;
+	&__title {
+		font-size: 24px;
+		font-weight: var(--fw-bold);
+	}
+	&__form {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+	&__input {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		label {
+			font-size: 8px;
+			text-transform: uppercase;
+			letter-spacing: 0.16em;
+			font-weight: var(--fw-bold);
+			color: var(--gray);
+		}
+		input[type="text"] {
+			font-size: 20px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			padding-bottom: 6px;
+			&:focus {
+				border-bottom: 1px solid var(--white);
+			}
+			&::placeholder {
+				opacity: 0.1;
+			}
+		}
+		label {
+			span {
+				opacity: 0.9;
+			}
+		}
+	}
+	&__dropdown {
+		position: relative;
+		cursor: pointer;
+		&--empty {
+			pointer-events: none;
+			svg {
+				display: none;
+			}
+		}
+		input {
+			pointer-events: none;
+			width: 100%;
+		}
+		& > svg {
+			position: absolute;
+			right: 0;
+			&[name="chevron"] {
+				transform: translateY(-3px);
+			}
+		}
+		&-options {
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			z-index: 1;
+			position: absolute;
+			background-color: var(--black-plate);
+			transform: translateY(-4px);
+			border-radius: var(--border-radius);
+			box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			li {
+				padding: 15px;
+				&:not(:last-of-type) {
+					border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+				}
+				&.create-new {
+					font-weight: var(--fw-bold);
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	&__preview-counter {
+		display: flex;
+		margin: 25px 0;
+		input {
+			width: 100%;
+			max-width: 120px;
+			font-size: 64px;
+			text-align: center;
+			font-weight: var(--fw-light);
+		}
+		button {
+			flex: 1;
+			text-align: center;
+			font-size: 36px;
+			color: var(--gray);
+			font-weight: var(--fw-x-light);
+			cursor: pointer;
+		}
+	}
+	&__controls {
+		display: flex;
+		flex-direction: column;
+		background-color: var(--black-plate);
+		border-radius: var(--border-radius);
+		button {
+			cursor: pointer;
+			text-align: center;
+			font-size: 12px;
+			padding: 15px;
+			color: var(--gray);
+			text-transform: uppercase;
+			font-weight: var(--fw-bold);
+			letter-spacing: 0.16em;
+			&:not(:last-of-type) {
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			}
+		}
+	}
 }

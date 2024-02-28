@@ -10,7 +10,15 @@ const modals = {
 
 export function ModalOverlay() {
 	const modal = useModalStore((state) => state.modal);
+	const setModal = useModalStore((state) => state.setModal);
 	const SelectedModal = modals[modal];
 
-	return <div className="modal-overlay">{modal && <SelectedModal />}</div>;
+	return (
+		<div
+			className="modal-overlay"
+			// onClick={() => setModal(null)}
+		>
+			{modal && <SelectedModal />}
+		</div>
+	);
 }

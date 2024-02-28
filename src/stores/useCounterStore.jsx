@@ -68,4 +68,5 @@ export const useCounterStore = create((set) => ({
 			set((state) => ({ groups: state.groups.map((group) => (group.id === groupId ? { ...group, counters: [...group.counters, counter] } : group)) }));
 		}
 	},
+	NEW_GROUP_OPTION: { id: "new", name: "Create new group..." },
 }));
