@@ -59,8 +59,8 @@ export const useCounterStore = create((set) => ({
 			),
 		}));
 	},
-	isCreatingCounter: false,
-	setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
+	// isCreatingCounter: false,
+	// setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
 	addCounter: ({ groupId, groupName, counter }) => {
 		if (groupId === "new") {
 			set((state) => ({ groups: [...state.groups, { id: crypto.randomUUID(), name: groupName, isExpanded: true, counters: [counter] }] }));
