@@ -36,13 +36,62 @@ export const useCounterStore = create((set) => ({
 					icon: "na",
 					value: 2,
 				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
+				{
+					id: 3,
+					name: "name 3",
+					unit: "unit",
+					icon: "na",
+					value: 2,
+				},
 			],
 		},
 	],
+	groups: [],
 	toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
 	activeCounterId: 1,
 	setActiveCounterId: (id) => set({ activeCounterId: id }),
-
 	setValue: (groupId, id, action) => {
 		function getValue(prev, action) {
 			switch (action) {
