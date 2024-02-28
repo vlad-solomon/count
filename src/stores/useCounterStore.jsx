@@ -39,7 +39,6 @@ export const useCounterStore = create((set) => ({
 			],
 		},
 	],
-	// groups: [],
 	toggleGroup: (id) => set((state) => ({ groups: state.groups.map((group) => (group.id === id ? { ...group, isExpanded: !group.isExpanded } : group)) })),
 	activeCounterId: 1,
 	setActiveCounterId: (id) => set({ activeCounterId: id }),
@@ -59,8 +58,6 @@ export const useCounterStore = create((set) => ({
 			),
 		}));
 	},
-	// isCreatingCounter: false,
-	// setIsCreatingCounter: (boolean) => set(() => ({ isCreatingCounter: boolean })),
 	addCounter: ({ groupId, groupName, counter }) => {
 		if (groupId === "new") {
 			set((state) => ({ groups: [...state.groups, { id: crypto.randomUUID(), name: groupName, isExpanded: true, counters: [counter] }] }));

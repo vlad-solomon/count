@@ -8,7 +8,7 @@ export function Counter({ id, groupId, name, unit, icon, value, isActive }) {
 	const setModal = useModalStore((state) => state.setModal);
 	const setActiveCounterId = useCounterStore((state) => state.setActiveCounterId);
 	const setValue = useCounterStore((state) => state.setValue);
-	const longPressAttrs = useLongPress(() => setModal("modify"), { threshold: 350 });
+	const longPressAttrs = useLongPress(() => setModal("modify"), { threshold: 500 });
 
 	return (
 		<div

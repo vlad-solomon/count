@@ -64,12 +64,12 @@ export function CreateCounterModal() {
 					onClick={() => {
 						const formData = new FormData(formRef.current);
 
-						const groupName = formData.get("groupName").trim();
+						const groupName = formData.get("groupName")?.trim();
 						const counter = {
 							id: crypto.randomUUID(),
 							name: formData.get("counterName").trim(),
 							unit: formData.get("unitOfMeasurement").trim(),
-							icon: useIcon(formData.get("counterName")),
+							icon: useIcon(formData.get("counterName").trim()),
 							value: 0,
 						};
 
