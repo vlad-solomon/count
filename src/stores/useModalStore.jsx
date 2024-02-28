@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
 export const useModalStore = create((set) => ({
-	modal: "create",
+	modal: null,
 	setModal: (modal) => set({ modal }),
 }));

@@ -1,24 +1,27 @@
 import "./CreateCounterModal.scss";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { useModalStore } from "../../stores/useModalStore";
 import { ChevronDown, X as Close } from "react-feather";
 import classNames from "classnames";
+import useIcon from "../../hooks/useIcon";
 
 export function CreateCounterModal() {
 	const setModal = useModalStore((state) => state.setModal);
 	const groups = useCounterStore((state) => state.groups);
 	const NEW_GROUP_OPTION = useCounterStore((state) => state.NEW_GROUP_OPTION);
+	const addCounter = useCounterStore((state) => state.addCounter);
+
+	const formRef = useRef();
 
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
 	const [isDropdown, setIsDropdown] = useState(false);
-	const [count, setCount] = useState(0);
 
 	return (
 		<>
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
-				<form className="modal__form" onSubmit={(e) => e.preventDefault()}>
+				<form className="modal__form" id="form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
 					<div className="modal__input">
 						<label>counter name</label>
 						<input type="text" name="counterName" />
@@ -51,25 +54,33 @@ export function CreateCounterModal() {
 							<input type="text" name="groupName" />
 						</div>
 					)}
-					{/* <div className="modal__preview-counter">
-						<button type="button" onClick={() => setCount((prev) => Math.max(0, --prev))}>
-							-
-						</button>
-						<input
-							type="text"
-							placeholder={0}
-							value={count === 0 ? "" : count}
-							onChange={(e) => setCount(e.target.value.replace(/\D/, ""))}
-							onBlur={() => setCount(count.length ? parseInt(count) : 0)}
-						/>
-						<button type="button" onClick={() => setCount((prev) => ++prev)}>
-							+
-						</button>
-					</div> */}
+					{/* //? <-- preview counter here | don't know if to implement or leave out--> */}
 				</form>
 			</div>
 			<div className="modal__controls">
-				<button type="submit">accept</button>
+				<button
+					type="submit"
+					form="form"
+					onClick={() => {
+						const formData = new FormData(formRef.current);
+
+						const groupName = formData.get("groupName").trim();
+						const counter = {
+							id: crypto.randomUUID(),
+							name: formData.get("counterName").trim(),
+							unit: formData.get("unitOfMeasurement").trim(),
+							icon: useIcon(formData.get("counterName")),
+							value: 0,
+						};
+
+						if (!counter.name || (selectedGroup.id === "new" && !groupName)) return;
+
+						addCounter({ groupId: selectedGroup.id, groupName, counter });
+						setModal(null);
+					}}
+				>
+					accept
+				</button>
 				<button type="button" onClick={() => setModal(null)}>
 					cancel
 				</button>
@@ -77,3 +88,15 @@ export function CreateCounterModal() {
 		</>
 	);
 }
+
+/* <div className="modal__preview-counter">
+    <button type="button" onClick={() => setCount((prev) => Math.max(0, --prev))}> - </button>
+    <input
+        type="text"
+        placeholder={0}
+        value={count === 0 ? "" : count}
+        onChange={(e) => setCount(e.target.value.replace(/\D/, ""))}
+        onBlur={() => setCount(count.length ? parseInt(count) : 0)}
+    />
+    <button type="button" onClick={() => setCount((prev) => ++prev)}> + </button>
+</div> */
