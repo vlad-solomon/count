@@ -21,14 +21,15 @@ export function Modal() {
 	// todo add clicking on the modal__wrapper to close it | stopPropagation
 	// todo only create a counter when a name and a group name (if applicable) is available
 	// todo add tabindex's
+	//? monospace font for numbers?
 
 	if (!isCreatingCounter) return;
 
 	return (
-		<div className="modal__wrapper">
+		<div className="modal__wrapper" onClick={() => setIsCreatingCounter(false)}>
 			<div className="modal__title">Create counter</div>
-			<div className="modal">
-				<form className="modal__form" id="new-counter-form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
+			<div className="modal" onClick={(e) => e.stopPropagation()}>
+				<form className="modal__form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
 					<div className="modal__input">
 						<label>counter name</label>
 						<input type="text" name="counterName" spellCheck={false} autoComplete="off" autoFocus />
@@ -41,7 +42,7 @@ export function Modal() {
 						<label>group</label>
 						<div className={classNames("modal__dropdown", !groups.length && "modal__dropdown--empty")} onClick={() => setIsDropdown((prev) => !prev)}>
 							<input type="text" value={selectedGroup.name} readOnly={true} spellCheck={false} autoComplete="off" />
-							{isDropdown ? <Close /> : <ChevronDown />}
+							{isDropdown ? <Close /> : <ChevronDown name="chevron" />}
 							{isDropdown && (
 								<ul className="modal__dropdown-options">
 									{[NEW_GROUP_OPTION, ...groups]
@@ -72,28 +73,31 @@ export function Modal() {
 						/>
 						<button onClick={() => setCount((prev) => ++prev)}> + </button>
 					</div>
+					<div className="modal__controls">
+						<button
+							type="submit"
+							onClick={() => {
+								const formData = new FormData(formRef.current);
+								const counter = {
+									id: crypto.randomUUID(),
+									name: formData.get("counterName").trim(),
+									unit: formData.get("unitOfMeasurement").trim(),
+									icon: useIcon(formData.get("counterName").trim()),
+									value: count,
+								};
+
+								// if (!formData.get("counterName").trim() || (selectedGroup.id === "new" && !formData.get("groupName").trim())) return;
+								setIsCreatingCounter(false);
+								addCounter({ groupId: selectedGroup.id, groupName: formData.get("groupName"), counter });
+							}}
+						>
+							accept
+						</button>
+						<button type="button" onClick={() => setIsCreatingCounter(false)}>
+							cancel
+						</button>
+					</div>
 				</form>
-				<div className="modal__controls">
-					<button onClick={() => setIsCreatingCounter(false)}>cancel</button>
-					<button
-						type="submit"
-						form="new-counter-form"
-						onClick={() => {
-							const formData = new FormData(formRef.current);
-							const counter = {
-								id: crypto.randomUUID(),
-								name: formData.get("counterName"),
-								unit: formData.get("unitOfMeasurement"),
-								icon: useIcon(formData.get("counterName")),
-								value: count,
-							};
-							setIsCreatingCounter(false);
-							addCounter({ groupId: selectedGroup.id, groupName: formData.get("groupName"), counter });
-						}}
-					>
-						accept
-					</button>
-				</div>
 			</div>
 		</div>
 	);
