@@ -5,6 +5,10 @@ import { Groups } from "./components/Group/Group";
 import { ModalOverlay } from "./components/ModalOverlay/ModalOverlay";
 import { useModalStore } from "./stores/useModalStore";
 
+// todo modify counter value on click
+// todo modify group name on long tap
+// todo check for compatibility for background blur filter
+
 function App() {
 	const modal = useModalStore((state) => state.modal);
 

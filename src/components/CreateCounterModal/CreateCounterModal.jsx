@@ -14,6 +14,9 @@ export function CreateCounterModal() {
 
 	const formRef = useRef();
 
+	// todo dismiss dropdown when clicking outside it
+	// todo disable spellcheck and autocomplete / suggestions
+
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
 	const [isDropdown, setIsDropdown] = useState(false);
 
@@ -54,7 +57,6 @@ export function CreateCounterModal() {
 							<input type="text" name="groupName" />
 						</div>
 					)}
-					{/* //? <-- preview counter here | don't know if to implement or leave out--> */}
 				</form>
 			</div>
 			<div className="modal__controls">

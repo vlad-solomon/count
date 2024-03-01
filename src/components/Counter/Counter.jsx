@@ -2,7 +2,7 @@ import "./Counter.scss";
 import classNames from "classnames";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { useModalStore } from "../../stores/useModalStore";
-import { useCounter, useLongPress } from "@uidotdev/usehooks";
+import { useLongPress } from "@uidotdev/usehooks";
 
 export function Counter({ id, groupId, name, unit, icon, value, isActive }) {
 	const setModal = useModalStore((state) => state.setModal);
@@ -34,9 +34,9 @@ export function Counter({ id, groupId, name, unit, icon, value, isActive }) {
 				{unit && <div className="counter__unit">{unit}</div>}
 			</div>
 			<div className="counter__counter-display">
-				<button onClick={() => setValue(groupId, id, "decrement")}> - </button>
+				<button onClick={() => setValue(id, "decrement")}> - </button>
 				<div className="counter__value">{value}</div>
-				<button onClick={() => setValue(groupId, id, "increment")}> + </button>
+				<button onClick={() => setValue(id, "increment")}> + </button>
 			</div>
 		</div>
 	);
