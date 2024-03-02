@@ -9,6 +9,7 @@ export function Group({ id, name, isExpanded }) {
 	const activeCounterId = useCounterStore((state) => state.activeCounterId);
 	const toggleGroup = useCounterStore((state) => state.toggleGroup);
 	const counters = useCounterStore((state) => state.counters);
+	const removeGroup = useCounterStore((state) => state.removeGroup);
 	const setModal = useModalStore((state) => state.setModal);
 
 	const groupCounters = counters.filter((counter) => counter.groupId === id);
@@ -25,7 +26,9 @@ export function Group({ id, name, isExpanded }) {
 				))}
 				{!groupCounters.length && (
 					<span className="group__empty">
-						This group is currently empty. <span onClick={() => setModal("create")}>Add a counter</span>
+						This group is currently empty.
+						<br />
+						<span onClick={() => setModal("create")}>Add a counter</span> or <span onClick={() => removeGroup(id)}>Remove the group</span>
 					</span>
 				)}
 			</div>
