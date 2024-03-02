@@ -90,15 +90,3 @@ export function CreateCounterModal() {
 		</>
 	);
 }
-
-/* <div className="modal__preview-counter">
-    <button type="button" onClick={() => setCount((prev) => Math.max(0, --prev))}> - </button>
-    <input
-        type="text"
-        placeholder={0}
-        value={count === 0 ? "" : count}
-        onChange={(e) => setCount(e.target.value.replace(/\D/, ""))}
-        onBlur={() => setCount(count.length ? parseInt(count) : 0)}
-    />
-    <button type="button" onClick={() => setCount((prev) => ++prev)}> + </button>
-</div> */

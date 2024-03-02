@@ -1,7 +1,7 @@
 import { create } from "zustand";
 // import { persist } from "zustand/middleware";
 
-export const useCounterStore = create((set, get) => ({
+export const useCounterStore = create((set) => ({
 	groups: [
 		{
 			id: 1,
@@ -62,13 +62,10 @@ export const useCounterStore = create((set, get) => ({
 			set((state) => ({ counters: [...state.counters, { groupId, ...counter }] }));
 		}
 	},
-	// modifiedCounterId: [null, null],
-	// setModifiedCounterId: (groupId, counterId) => set({ modifiedCounterId: [groupId, counterId] }),
-	// modifyCounter: ({ groupId, counterId, modifiedCounter }) =>
-	// 	set((state) => ({
-	// 		groups: state.groups.map((group) =>
-	// 			group.id === groupId ? { ...group, counters: group.counters.map((counter) => (counter.id === counterId ? { ...counter, ...modifiedCounter } : counter)) } : group
-	// 		),
-	// 	})),
+	modifiedCounterId: null,
+	setModifiedCounterId: (id) => set({ modifiedCounterId: id }),
+	modifyCounter: ({ id, modifiedCounter }) => {
+		set((state) => ({ counters: state.counters.map((counter) => (counter.id === id ? { ...counter, ...modifiedCounter } : counter)) }));
+	},
 	NEW_GROUP_OPTION: { id: "new", name: "Create new group..." },
 }));

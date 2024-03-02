@@ -5,13 +5,13 @@ import { useRef } from "react";
 import useIcon from "../../hooks/useIcon";
 
 export function ModifyCounterModal() {
-	const [selectedGroupId, selectedCounterId] = useCounterStore((state) => state.modifiedCounterId);
+	const counters = useCounterStore((state) => state.counters);
+	const modifiedCounterId = useCounterStore((state) => state.modifiedCounterId);
 	const modifyCounter = useCounterStore((state) => state.modifyCounter);
 	const setModal = useModalStore((state) => state.setModal);
-	const groups = useCounterStore((state) => state.groups);
 	const formRef = useRef();
 
-	const selectedCounter = groups.find((group) => group.id === selectedGroupId).counters.find((counter) => counter.id === selectedCounterId);
+	const selectedCounter = counters.find((counter) => counter.id === modifiedCounterId);
 
 	return (
 		<>
@@ -43,7 +43,7 @@ export function ModifyCounterModal() {
 						};
 
 						if (!counter.name) return;
-						modifyCounter({ groupId: selectedGroupId, counterId: selectedCounterId, modifiedCounter: counter });
+						modifyCounter({ id: modifiedCounterId, modifiedCounter: counter });
 						setModal(null);
 					}}
 				>
