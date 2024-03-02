@@ -17,6 +17,9 @@ export function Counter({ id, name, unit, icon, value, isActive }) {
 		setModifiedCounterId(id);
 	}
 
+	// todo handle long names
+	// todo handle dragging onto groups (try: only the active counter should display a drag handle and be draggable also)
+
 	return (
 		<div {...longPressAttrs} className={classNames("counter", isActive && "counter--active")} onClick={() => setActiveCounterId(id)} onContextMenu={(e) => handleModifyCounter(e)}>
 			<div className="counter__icon">{icon}</div>

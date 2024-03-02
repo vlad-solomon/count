@@ -37,9 +37,11 @@
 		flex-direction: column;
 		gap: 8px;
 		label {
+			font-family: "JetBrains Mono";
+			font-weight: 600;
 			font-size: 8px;
 			text-transform: uppercase;
-			letter-spacing: 0.16em;
+			letter-spacing: 0.24em;
 			font-weight: var(--fw-bold);
 			color: var(--gray);
 		}

@@ -3,13 +3,15 @@
 	flex-direction: column;
 	gap: 15px;
 	&__title {
+		font-family: "JetBrains Mono";
 		display: flex;
 		align-items: center;
 		gap: 5px;
 		font-size: 8px;
 		text-transform: uppercase;
-		font-weight: var(--fw-bold);
-		letter-spacing: 0.16em;
+		// font-weight: var(--fw-bold);
+		font-weight: 600;
+		letter-spacing: 0.24em;
 		color: var(--gray);
 		cursor: pointer;
 	}
