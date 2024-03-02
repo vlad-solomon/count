@@ -4,6 +4,7 @@ import { useCounterStore } from "../../stores/useCounterStore";
 import { useRef } from "react";
 import { Trash as Remove } from "react-feather";
 import useIcon from "../../hooks/useIcon";
+import { Input } from "../Input/Input";
 
 export function ModifyCounterModal() {
 	const counters = useCounterStore((state) => state.counters);
@@ -30,14 +31,8 @@ export function ModifyCounterModal() {
 			</div>
 			<div className="modal">
 				<form className="modal__form" id="form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
-					<div className="modal__input">
-						<label>counter name</label>
-						<input type="text" name="counterName" defaultValue={selectedCounter.name} />
-					</div>
-					<div className="modal__input">
-						<label>unit of measurement (optional)</label>
-						<input type="text" name="unitOfMeasurement" defaultValue={selectedCounter.unit} />
-					</div>
+					<Input label="Counter name" defaultValue={selectedCounter.name} name="counterName" />
+					<Input label="Unit of measurement" defaultValue={selectedCounter.unit} name="unitOfMeasurement" optional={true} />
 				</form>
 			</div>
 			<div className="modal__controls">

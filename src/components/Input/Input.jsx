@@ -1,7 +1,7 @@
 import "./Input.scss";
 import classNames from "classnames";
 
-export function Input({ className, label, name, value, optional, children, readOnly, onChange, onFocus, onBlur }) {
+export function Input({ className, label, name, value, defaultValue, optional, children, readOnly, onChange, onFocus, onBlur }) {
 	const settings = {
 		autoComplete: "off",
 		autoCorrect: "on",
@@ -15,7 +15,7 @@ export function Input({ className, label, name, value, optional, children, readO
 					{label} {optional && <span>optional</span>}
 				</label>
 			)}
-			<input type="text" value={value} name={name} onChange={onChange} readOnly={readOnly} onFocus={onFocus} onBlur={onBlur} {...settings} />
+			<input type="text" value={value} defaultValue={defaultValue} name={name} onChange={onChange} readOnly={readOnly} onFocus={onFocus} onBlur={onBlur} {...settings} />
 			{children}
 		</div>
 	);
