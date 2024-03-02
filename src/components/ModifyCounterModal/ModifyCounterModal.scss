@@ -1,0 +1,16 @@
+.modal__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--black-plate);
+		border-radius: var(--border-radius);
+		color: #878686;
+		height: 35px;
+		cursor: pointer;
+		aspect-ratio: 1;
+	}
+}
