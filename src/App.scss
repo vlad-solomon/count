@@ -5,4 +5,23 @@
 	flex-direction: column;
 	gap: 20px;
 	padding-bottom: 100px;
+	height: 100dvh;
+}
+
+.app__empty {
+	height: 100%;
+	width: 65%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "JetBrains Mono";
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: var(--fw-bold);
+	letter-spacing: 0.12em;
+	color: var(--gray);
+	text-align: center;
+	margin: 0 auto;
+	line-height: 2em;
+	text-wrap: balance;
 }

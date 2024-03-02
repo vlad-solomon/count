@@ -18,7 +18,6 @@ function App() {
 			{modal && <ModalOverlay />}
 			<Groups />
 			<ActionButton />
-			{/* //todo empty state */}
 		</>
 	);
 }

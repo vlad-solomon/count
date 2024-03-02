@@ -6,11 +6,11 @@ import classNames from "classnames";
 
 export function ActionButton() {
 	const setModal = useModalStore((state) => state.setModal);
-	const groups = useCounterStore((state) => state.groups);
+	const counters = useCounterStore((state) => state.counters);
 
 	return (
 		<button
-			className={classNames("action-button", !groups.length && "action-button--animation")}
+			className={classNames("action-button", !counters.length && "action-button--animation")}
 			onClick={() => {
 				setModal("create");
 			}}

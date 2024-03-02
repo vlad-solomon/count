@@ -35,5 +35,15 @@ export function Group({ id, name, isExpanded }) {
 
 export function Groups() {
 	const groups = useCounterStore((state) => state.groups);
+
+	if (!groups.length)
+		return (
+			<span className="app__empty">
+				Welcome to count!
+				<br />
+				<br /> Use the create button to start adding counters
+			</span>
+		);
+
 	return groups.map(({ id, name, isExpanded }) => <Group key={id} id={id} name={name} isExpanded={isExpanded} />);
 }
