@@ -12,7 +12,7 @@ export function Counter({ id, name, unit, icon, value, isActive }) {
 	const longPressAttrs = useLongPress(handleModifyCounter, { threshold: 500 });
 
 	function handleModifyCounter(e) {
-		e.preventDefault();
+		if (e.cancelable) e.preventDefault();
 		setModal("modify");
 		setModifiedCounterId(id);
 	}
