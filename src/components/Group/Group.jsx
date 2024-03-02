@@ -2,12 +2,14 @@ import "./Group.scss";
 import { Counter } from "../Counter/Counter";
 import { ChevronDown } from "react-feather";
 import { useCounterStore } from "../../stores/useCounterStore";
+import { useModalStore } from "../../stores/useModalStore";
 import classNames from "classnames";
 
 export function Group({ id, name, isExpanded }) {
 	const activeCounterId = useCounterStore((state) => state.activeCounterId);
 	const toggleGroup = useCounterStore((state) => state.toggleGroup);
 	const counters = useCounterStore((state) => state.counters);
+	const setModal = useModalStore((state) => state.setModal);
 
 	const groupCounters = counters.filter((counter) => counter.groupId === id);
 
@@ -18,10 +20,14 @@ export function Group({ id, name, isExpanded }) {
 				<ChevronDown size={12} style={{ rotate: !isExpanded ? "-90deg" : "0deg" }} />
 			</div>
 			<div className="group__counters" style={{ display: !isExpanded ? "none" : "flex" }}>
-				{/* //todo empty state for empty groups */}
 				{groupCounters.map((counter) => (
 					<Counter key={counter.id} groupId={id} {...counter} isActive={counter.id === activeCounterId} />
 				))}
+				{!groupCounters.length && (
+					<span className="group__empty">
+						This group is currently empty. <span onClick={() => setModal("create")}>Add a counter</span>
+					</span>
+				)}
 			</div>
 		</div>
 	);
@@ -29,6 +35,5 @@ export function Group({ id, name, isExpanded }) {
 
 export function Groups() {
 	const groups = useCounterStore((state) => state.groups);
-
 	return groups.map(({ id, name, isExpanded }) => <Group key={id} id={id} name={name} isExpanded={isExpanded} />);
 }
