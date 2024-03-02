@@ -1,9 +1,9 @@
 import "./CreateCounterModal.scss";
 import { useRef, useState } from "react";
+import { useClickAway } from "@uidotdev/usehooks";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { useModalStore } from "../../stores/useModalStore";
-import { ChevronDown, X as Close } from "react-feather";
-import classNames from "classnames";
+import { Input } from "../Input/Input";
 import useIcon from "../../hooks/useIcon";
 
 export function CreateCounterModal() {
@@ -11,52 +11,49 @@ export function CreateCounterModal() {
 	const groups = useCounterStore((state) => state.groups);
 	const NEW_GROUP_OPTION = useCounterStore((state) => state.NEW_GROUP_OPTION);
 	const addCounter = useCounterStore((state) => state.addCounter);
-
-	const formRef = useRef();
-
-	// todo dismiss dropdown when clicking outside it
-	// todo disable spellcheck and autocomplete / suggestions
-
+	const [isFocused, setIsFocused] = useState(false);
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
-	const [isDropdown, setIsDropdown] = useState(false);
+	const formRef = useRef();
+	const dropdownRef = useClickAway(() => setIsFocused(false));
+
+	// todo the dropdown goes offscreen sometimes -- need to set some height, this is css issue, the js is done
 
 	return (
 		<>
 			<div className="modal__title">Create counter</div>
 			<div className="modal">
 				<form className="modal__form" id="form" ref={formRef} onSubmit={(e) => e.preventDefault()}>
-					<div className="modal__input">
-						<label>counter name</label>
-						<input type="text" name="counterName" />
-					</div>
-					<div className="modal__input">
-						<label>unit of measurement (optional)</label>
-						<input type="text" name="unitOfMeasurement" />
-					</div>
-					<div className="modal__input">
-						<label>group</label>
-						<div className={classNames("modal__dropdown", !groups.length && "modal__dropdown--empty")} onClick={() => setIsDropdown((prev) => !prev)}>
-							<input type="text" value={selectedGroup.name} readOnly={true} spellCheck={false} autoComplete="off" />
-							{isDropdown ? <Close /> : <ChevronDown name="chevron" />}
-							{isDropdown && (
-								<ul className="modal__dropdown-options">
-									{[NEW_GROUP_OPTION, ...groups]
-										.filter((option) => option.id !== selectedGroup.id)
-										.map(({ id, name }) => (
-											<li className={classNames(id === "new" && "create-new")} key={id} onClick={() => setSelectedGroup({ id, name })}>
-												{name}
-											</li>
-										))}
-								</ul>
-							)}
-						</div>
-					</div>
-					{selectedGroup.id === "new" && (
-						<div className="modal__input">
-							<label>group name</label>
-							<input type="text" name="groupName" />
-						</div>
-					)}
+					<Input label="Counter name" name="counterName" />
+					<Input label="Unit of measurement" name="unitOfMeasurement" optional={true} />
+					<Input
+						label="Group name"
+						name="groupName"
+						onFocus={() => setIsFocused(true)}
+						value={selectedGroup.name}
+						onChange={(e) => {
+							const matchingGroup = groups.find((group) => group.name === e.target.value);
+							setSelectedGroup({ id: matchingGroup ? matchingGroup.id : "new", name: e.target.value });
+							setIsFocused(!matchingGroup);
+						}}
+					>
+						{isFocused && (
+							<ul className="input__dropdown" ref={dropdownRef}>
+								{groups
+									.filter((option) => option.name.includes(selectedGroup.name) && option.id !== selectedGroup.id)
+									.map((group) => (
+										<li
+											key={group.id}
+											onClick={() => {
+												setSelectedGroup({ id: group.id, name: group.name });
+												setIsFocused(false);
+											}}
+										>
+											{group.name}
+										</li>
+									))}
+							</ul>
+						)}
+					</Input>
 				</form>
 			</div>
 			<div className="modal__controls">
@@ -65,7 +62,6 @@ export function CreateCounterModal() {
 					form="form"
 					onClick={() => {
 						const formData = new FormData(formRef.current);
-
 						const groupName = formData.get("groupName")?.trim();
 						const counter = {
 							id: crypto.randomUUID(),
@@ -76,7 +72,6 @@ export function CreateCounterModal() {
 						};
 
 						if (!counter.name || (selectedGroup.id === "new" && !groupName)) return;
-
 						addCounter({ groupId: selectedGroup.id, groupName, counter });
 						setModal(null);
 					}}

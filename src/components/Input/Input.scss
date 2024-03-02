@@ -1,0 +1,94 @@
+// &__dropdown {
+// 	position: relative;
+// 	cursor: pointer;
+// 	&--empty {
+// 		pointer-events: none;
+// 		svg {
+// 			display: none;
+// 		}
+// 	}
+// 	input {
+// 		pointer-events: none;
+// 		width: 100%;
+// 	}
+// 	& > svg {
+// 		position: absolute;
+// 		right: 0;
+// 		&[name="chevron"] {
+// 			transform: translateY(-3px);
+// 		}
+// 	}
+// 	&-options {
+// 		border: 1px solid rgba(255, 255, 255, 0.08);
+// 		z-index: 1;
+// 		position: absolute;
+// 		background-color: var(--black-plate);
+// 		transform: translateY(-4px);
+// 		border-radius: var(--border-radius);
+// 		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+// 		width: 100%;
+// 		display: flex;
+// 		flex-direction: column;
+// 		gap: 5px;
+// 		li {
+// 			padding: 15px;
+// 			&:not(:last-of-type) {
+// 				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+// 			}
+// 			&.create-new {
+// 				font-weight: var(--fw-bold);
+// 				text-decoration: underline;
+// 			}
+// 		}
+// 	}
+// }
+
+.input {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	label {
+		display: flex;
+		justify-content: space-between;
+		font-family: "JetBrains Mono";
+		font-weight: var(--fw-bold);
+		font-size: 8px;
+		text-transform: uppercase;
+		letter-spacing: 0.24em;
+		font-weight: var(--fw-bold);
+		color: var(--gray);
+		span {
+			font-style: italic;
+		}
+	}
+	input[type="text"] {
+		font-size: 20px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		padding-bottom: 6px;
+		&:focus {
+			border-bottom: 1px solid var(--white);
+		}
+	}
+
+	// todo replace rgba(255,255,255,0.08) with var --transparent-white document-wide
+	&__dropdown {
+		position: absolute;
+		border: 1px solid var(--transparent-white);
+		background-color: var(--black-plate);
+		border-radius: var(--border-radius);
+		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		top: 100%;
+		li {
+			cursor: pointer;
+			padding: 15px;
+			&:not(:last-of-type) {
+				border-bottom: 1px solid var(--transparent-white);
+			}
+		}
+	}
+}
