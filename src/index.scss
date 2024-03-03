@@ -36,3 +36,17 @@ img {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+::-webkit-scrollbar {
+	width: 0px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--gray-400);
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--gray-600);
+}

@@ -4,6 +4,7 @@ import { useClickAway } from "@uidotdev/usehooks";
 import { useCounterStore } from "../../stores/useCounterStore";
 import { useModalStore } from "../../stores/useModalStore";
 import { Input } from "../Input/Input";
+import { X as Clear } from "react-feather";
 import useIcon from "../../hooks/useIcon";
 
 export function CreateCounterModal() {
@@ -15,8 +16,6 @@ export function CreateCounterModal() {
 	const [selectedGroup, setSelectedGroup] = useState(NEW_GROUP_OPTION);
 	const formRef = useRef();
 	const dropdownRef = useClickAway(() => setIsFocused(false));
-
-	// todo the dropdown goes offscreen sometimes -- need to set some height, this is css issue, the js is done
 
 	return (
 		<>
@@ -36,6 +35,7 @@ export function CreateCounterModal() {
 							setIsFocused(!matchingGroup);
 						}}
 					>
+						{selectedGroup.name && <Clear onClick={() => setSelectedGroup(NEW_GROUP_OPTION)} />}
 						{isFocused && (
 							<ul className="input__dropdown" ref={dropdownRef}>
 								{groups
