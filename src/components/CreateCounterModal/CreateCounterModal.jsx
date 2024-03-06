@@ -35,6 +35,7 @@ export function CreateCounterModal() {
 							setIsFocused(!matchingGroup);
 						}}
 					>
+						{/* //todo ul gets rendered when there are no groups available */}
 						{selectedGroup.name && <Clear onClick={() => setSelectedGroup(NEW_GROUP_OPTION)} />}
 						{isFocused && (
 							<ul className="input__dropdown" ref={dropdownRef}>
